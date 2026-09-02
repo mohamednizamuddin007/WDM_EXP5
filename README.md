@@ -1,5 +1,7 @@
 ### EX5 Information Retrieval Using Boolean Model in Python
-### DATE: 
+## NAME : MOHAMED NIZAMUDDIN A
+## REG NO: 212224040194
+
 ### AIM: To implement Information Retrieval Using Boolean Model in Python.
 ### Description:
 <div align = "justify">
@@ -22,7 +24,7 @@ The Boolean model in Information Retrieval (IR) is a fundamental model used for 
     <p>c) For each term in the query, it retrieves documents containing that term and performs Boolean operations (AND, OR, NOT) based on the query's structure.
 
 ### Program:
-
+```
     import numpy as np
     import pandas as pd
     class BooleanRetrieval:
@@ -62,7 +64,30 @@ The Boolean model in Information Retrieval (IR) is a fundamental model used for 
         print(list(self.index.keys()))
 
     def boolean_search(self, query):
-        # TYPE YOUR CODE HERE
+     parts = query.lower().split()
+        if len(parts) == 1:
+            return self.index.get(parts[0], set())
+        
+        if len(parts) == 2 and parts[0] == 'not':
+            term = parts[1]
+            term_docs = self.index.get(term, set())
+            return self.all_doc_ids - term_docs
+        if len(parts) != 3:
+            return "Invalid query format. Use 'term1 operator term2' (e.g., 'python and information')."
+
+        term1, operator, term2 = parts[0], parts[1], parts[2]
+        
+        result_set1 = self.index.get(term1, set())
+        result_set2 = self.index.get(term2, set())
+        
+        if operator == 'and':
+            return result_set1.intersection(result_set2)
+        elif operator == 'or':
+            return result_set1.union(result_set2)
+        elif operator == 'not':
+            return result_set1.difference(result_set2)
+        else:
+            return "Unsupported operator. Use 'and', 'or', or 'not'."
 
 if __name__ == "__main__":
     indexer = BooleanRetrieval()
@@ -86,8 +111,15 @@ if __name__ == "__main__":
         print(f"Results for '{query}': {results}")
     else:
         print("No results found for the query.")
-
-
+```
 ### Output:
+<img width="1820" height="487" alt="494244933-0ae6dec7-8374-47b7-9cce-acf55411a426" src="https://github.com/user-attachments/assets/4dd8c9b0-ff61-462a-bfa1-9ce3f37318be" />
+<img width="1811" height="486" alt="494247314-fa4ce7fd-16da-45e0-9565-b5dd51fcb13e" src="https://github.com/user-attachments/assets/7d96c03c-8650-4a97-8c31-8da137029b38" />
+<img width="1818" height="487" alt="494248064-c6180e41-6f96-4855-8d04-f891aee04b49" src="https://github.com/user-attachments/assets/015c23c2-59b6-4663-b9e4-e6a1f86b79b2" />
+
+
 
 ### Result:
+  Implementation of Information Retrieval Using Boolean Model in Python is successfully completed.
+
+
